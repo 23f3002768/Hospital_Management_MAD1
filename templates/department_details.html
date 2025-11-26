@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Department of {{ department.name }}</h2>
+    <p>{{ department.description }}</p>
+    <h3>Doctors' List</h3>
+    <ul>
+        {% for doc in doctors %}
+        <li>
+            Dr. {{ doc.name }}
+            <a href="/doctor_profile/{{ doc.id }}"><button type="button">View details</button></a>
+            <a href="/check_availability/{{ doc.id }}"><button type="button"> check availability</button></a>
+        </li>
+        {% else %}
+        <li>No doctors in the department yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Provide Availability</title>
+</head>
+<body style="font-family: Arial, sans-serif;">
+  <h2>Provide Your Availability for the Next 7 Days</h2>
+  <form method="post">
+    {% for d in dates %}
+      <div style="margin-bottom:12px;">
+        <b>{{ d.strftime("%A, %d %b %Y") }}</b> <br>
+        Morning:
+        <input type="time" name="morning_start_{{ d }}" value="{{ form_data[d][0].start_time if form_data[d][0] else '' }}">
+        to
+        <input type="time" name="morning_end_{{ d }}" value="{{ form_data[d][0].end_time if form_data[d][0] else '' }}">
+        &nbsp;&nbsp;
+        Evening:
+        <input type="time" name="evening_start_{{ d }}" value="{{ form_data[d][1].start_time if form_data[d][1] else '' }}">
+        to
+        <input type="time" name="evening_end_{{ d }}" value="{{ form_data[d][1].end_time if form_data[d][1] else '' }}">
+        {% if form_data[d][0] or form_data[d][1] %}
+          <span style="color: green; font-size: 13px;">Prefilled slot</span>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit">Save</button>
+  </form>
+</body>
+</html>
+

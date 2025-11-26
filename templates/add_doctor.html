@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Add a New Doctor</h3>
+    <form action="/add_doctor" method="POST">
+        <label for="fullname">Fullname</label>
+        <input type="text" name="name" required><br><br>
+
+        <label for="specialization">specialization</label>
+        <input type="text" name="specialization" required><br><br>
+
+        <label for="experience">Experience(years):</label>
+        <input type="number" name="experience" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" required><br><br>
+
+        <label for="password">Password</label>
+        <input type="passowrd" name="password" required><br><br>
+
+        <label for="contact">Contact</label>
+        <input type="text" name="contact" required><br><br>
+
+        <label for="department">Department:</label>
+        <select name="department_id" required>
+          {% for dept in departments %}
+            <option value="{{ dept.id }}">{{ dept.name }}</option>
+          {% endfor %}
+        </select><br><br>
+
+
+        <button type="submit">Create</button>
+
+        <label for=""></label>
+    </form>
+
+</body>
+</html>

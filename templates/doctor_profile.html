@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Dr. {{ doctor.name }}</h2>
+    <p><b>{{ doctor.specialization }}</b></p>
+    <p><b>Dept: {{ doctor.department.name }}</b></p>
+    <p><b>Experience: {{ doctor.experience }} years</b></p>
+    <p><b>Email: {{ doctor.email }}</b></p>
+    <br>
+    <div>
+        <a href="/check_availability"><button type="button">check availability</button></a>
+        <a href="/patient_dashboard"><button type="button">Go back</button></a>
+    </div>
+</body>
+</html>

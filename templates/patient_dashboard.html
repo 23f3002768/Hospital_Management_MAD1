@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h3>WELCOMEEE</h3>
+        <a href="/edit_proile_patientdashboard"><button type="button"></button>Edit profile</a>
+        <a href="/history"><button type="button"></button>History</a>
+        <a href="/logout_patientdashboard"><button type="button"></button>Logout</a>
+    </div>
+
+    <br><br>
+
+    <div>
+        <h3>Departments</h3>
+        <ul>
+            {% for dept in departments %}
+            <li>{{ dept.name }} <a href="/department/{{ dept.id }}"><button type="button">View Details</button></a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <br><br>
+
+    <div>
+        <h3>Upcoming Appointments</h3>
+        <table border="1">
+            <tr>
+                <th>Sr. no</th>
+                <th>Doctor name</th>
+                <th>Department</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>more</th>
+            </tr>
+            {% for appt in appointments %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>Dr. {{ appt.doctor.name }}</td>
+                <td>{{ appt.doctor.department.name }}</td>
+                <td>{{ appt.date }}</td>
+                <td>{{ appt.time }}</td>
+                <td><a href="/cancel_appointment/{{ appt.id }}"><button type="button">Cancel</button></a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+
+</body>
+</html>

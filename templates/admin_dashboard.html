@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<div>
+    <h2>WELCOME ADMIN</h2>
+</div>
+
+
+<div style="display: flex; align-items: center; justify-content: space-between;">
+    <h3>Registered Doctors</h3>
+    <a href="/add_doctor"><button type="button">Add Doctor</button></a>
+</div>
+
+<div>
+<table border="1" style="width: 100%; margin-top: 10px;">
+    <tr>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Actions</th>
+    </tr>
+    {% for doctor in doctors %}
+
+    <tr>
+        <td>{{doctor.name}}</td>
+        <td>{{doctor.department}}</td>
+        <td>
+             <a href="/edit-doctor/{{ doctor.id }}"><button type="button">Edit</button></a>
+             <a href="/edit-doctor/{{ doctor.id }}"><button type="button">delete</button></a>
+             <a href="/edit-doctor/{{ doctor.id }}"><button type="button">blacklist</button></a>
+        </td>
+    </tr>
+    {%endfor%}
+</table>
+</div>
+
+
+
+<div style="display: flex; align-items: center; justify-content: space-between;">
+    <h3>Registered paients</h3>
+</div>
+
+<div>
+    <table border="1" style="width: 100%; margin-top: 10px;">
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        {%for patient in patients %}
+        <tr>
+            <td>{{patient.name}}</td>
+            <td>
+                <a href="/edit-patient/{{patient.id}}"><button type = "button">Edit</button></a>
+                <a href="/edit-patient/{{patient.id}}"><button type = "button">delete</button></a>
+                <a href="/edit-patient/{{patient.id}}"><button type = "button">blacklist</button></a>
+            </td>
+        </tr>
+        {%endfor%}
+    </table>
+</div>
+
+
+<div style="display: flex; align-items: center; justify-content: space-between;">
+    <h3>Upcoming Appointments</h3>
+</div>
+
+<div>
+    <table border="1" style="width: 100%; margin-top: 10px">
+    <tr>
+        <th>Sr No</th>
+        <th>Patient name</th>
+        <th>Doctor name</th>
+        <th>Department</th>
+        <th>Patient history</th>
+    </tr>
+    {%for appointments in Appointment %}
+
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{appointments.patients.name}}</td>
+        <td>{{appointments.doctors.name}}</td>
+        <td>{{appointments.doctors.department}}</td>
+        <td><a href="/view-history/{{ appointment.id }}"><button type="button">View</button></a>
+            </td>
+    </tr>
+    {% endfor %}
+    </table>
+</div>
+
+       
+
+    
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+<div style="display: flex; align-items: center; justify-content: space-between;">
+<h3>Welcome Doctor </h3>
+<a href="/logout"><button type="button">Logout</button></a>
+</div>
+
+
+<div>
+    <h4>Upcoming Appointments</h4>
+    <table border="1" style="width: 100%;">
+        <tr>
+            <th>Sr.No</th>
+            <th>Patient Name</th>
+            <th>Patient's History</th>
+            <th>Actions</th>
+        </tr>
+        {% for appt in appointments %}
+        <tr>
+            <td>{{appt.id}}</td>
+            <td>{{appt.patient.id}}</td>
+            <td>
+                <a href="/patient_history/{{ appt.id }}"><button type="button">Update</button></a>
+            </td>
+            <td>
+                <a href="/mark_complete/{{ appt.id }}"><button type="button">Mark as Complete</button></a>
+                <a href="/cancel/{{ appt.id }}"><button type="button">Cancel</button></a>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>
+
+<div>
+    <h4>Assigned patients</h4>
+    <table border="1" style="width: 100%;">
+        {% for patient in assigned_patients %}
+        <tr>
+            <td>{{ patient.name }}</td>
+            <td><a href="/patient_history/{{ patient.id }}"><button type="button">View</button></a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<br><br>
+<div>
+    <a href="/provide_availability"><button type="button">Provide Availablility</button></a>
+</div>
+
+
+</body>
+</html>
