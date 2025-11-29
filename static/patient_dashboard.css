@@ -1,0 +1,77 @@
+/* static/patient_dashboard.css - minimal, consistent with your app */
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    color: #111;
+}
+
+/* Top area */
+h3 { margin: 0 0 8px 0; }
+h4 { margin: 14px 0 8px 0; }
+
+/* Forms */
+form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 6px 0;
+}
+label { font-size: 14px; }
+select, input[type="text"] {
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Buttons */
+button {
+    padding: 7px 12px;
+    background: #4f46e5;
+    border: none;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+button:hover { background: #4338ca; }
+a { text-decoration: none; }
+
+/* Lists (departments) */
+ul { padding-left: 0; list-style: none; margin: 8px 0; }
+ul li {
+    background: #fff;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+th, td {
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    text-align: left;
+    font-size: 14px;
+}
+th { background: #f1f1f1; }
+tr:nth-child(even) { background: #fafafa; }
+
+/* Small responsive tweak */
+@media (max-width: 700px) {
+    form { flex-direction: column; align-items: stretch; }
+    ul li { flex-direction: column; align-items: flex-start; gap: 8px; }
+}

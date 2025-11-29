@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Doctor Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='doctor_profile.css') }}">
+
 </head>
 <body>
     <h2>Dr. {{ doctor.name }}</h2>
@@ -13,7 +15,7 @@
     <p><b>Email: {{ doctor.email }}</b></p>
     <br>
     <div>
-        <a href="/check_availability"><button type="button">check availability</button></a>
+        <a href="/check_availability/{{ doctor.id }}"><button type="button">check availability</button></a>
         <a href="/patient_dashboard"><button type="button">Go back</button></a>
     </div>
 </body>

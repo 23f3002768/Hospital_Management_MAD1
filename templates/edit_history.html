@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Update Patient History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='edit_history.css') }}">
+
+</head>
+<body>
+    <h2>Update Patient History</h2>
+
+    <p>Patient Name: {{ patient.name }}</p>
+    {% if department %}
+    <p>Department: {{ department.name }}</p>
+    {% endif %}
+    <p>Date: {{ appt.date }}</p>
+
+    <form action="/edit_history/{{ appt.id }}" method="POST">
+        <label>Diagnosis:</label><br>
+        <textarea name="diagnosis" rows="3" cols="50">{{ treatment.diagnosis }}</textarea><br><br>
+
+        <label>Prescription:</label><br>
+        <textarea name="prescription" rows="3" cols="50">{{ treatment.prescription }}</textarea><br><br>
+
+        <label>Notes / Medicines:</label><br>
+        <textarea name="notes" rows="3" cols="50">{{ treatment.notes }}</textarea><br><br>
+
+        <button type="submit">Save</button>
+    </form>
+
+    <br>
+    <a href="/doctor_dashboard"><button type="button">Back</button></a>
+</body>
+</html>

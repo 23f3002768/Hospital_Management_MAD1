@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Doctor Availability</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='doctor_availability.css') }}">
+
+</head>
+<body>
+    <h2>Doctor's Availability</h2>
+    <p>Dr. {{ doctor.name }} ({{ doctor.specialization }})</p>
+    <p>Department: {{ doctor.department.name }}</p>
+    <br>
+
+    <table border="1">
+        <tr>
+            <th>Date</th>
+            <th>Start time</th>
+            <th>End time</th>
+            <th>Status / Action</th>
+        </tr>
+
+        {% for s in slot_view %}
+        <tr>
+            <td>{{ s.slot.date }}</td>
+            <td>{{ s.slot.start_time.strftime('%H:%M') }}</td>
+            <td>{{ s.slot.end_time.strftime('%H:%M') }}</td>
+            <td>
+                {% if s.is_booked %}
+                    Booked
+                {% else %}
+                    <a href="/book_appointment/{{ s.slot.id }}">
+                        <button type="button">Book</button>
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="4">No available slots found.</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="/department/{{ doctor.department.id }}">
+        <button type="button">Go Back</button>
+    </a>
+</body>
+</html>

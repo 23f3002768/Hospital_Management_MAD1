@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Reschedule Appointment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='reschedule_select_slot.css') }}">
+
+</head>
+<body>
+    <h3>Reschedule Appointment</h3>
+    <p>
+        Current: Dr. {{ doctor.name }}
+        on {{ appt.date }} at {{ appt.time }}
+    </p>
+
+    <h4>Select a new slot</h4>
+    <table border="1" style="width: 100%;">
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        {% for item in slot_view %}
+        <tr>
+            <td>{{ item.slot.date }}</td>
+            <td>{{ item.slot.start_time }} - {{ item.slot.end_time }}</td>
+            <td>
+                {% if item.is_booked %}
+                    Booked
+                {% else %}
+                    Available
+                {% endif %}
+            </td>
+            <td>
+                {% if not item.is_booked %}
+                <a href="/apply_reschedule/{{ appt.id }}/{{ item.slot.id }}">
+                    <button type="button">Choose</button>
+                </a>
+                {% else %}
+                    -
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="/patient_dashboard"><button type="button">Back</button></a>
+</body>
+</html>

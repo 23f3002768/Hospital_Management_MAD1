@@ -24,6 +24,8 @@ class User(db.Model):
     department_id = db.Column(db.Integer, db.ForeignKey('department.id'), nullable=True)
     dob = db.Column(db.Date, nullable=True)
     medical_history = db.Column(db.Text, nullable=True)
+    blacklisted = db.Column(db.Boolean, default=False)
+
 
     appointments_as_patient = db.relationship(
         'Appointment', 
@@ -55,7 +57,7 @@ class Appointment(db.Model):
     patient_id = db.Column(db.Integer, db.ForeignKey('user.id',ondelete='CASCADE'), nullable= False)
     doctor_id = db.Column(db.Integer, db.ForeignKey('user.id',ondelete='CASCADE'), nullable = False)
     date = db.Column(db.Date, nullable=False)
-    time = db.Column(db.Time, nullable=False)
+    time = db.Column(db.Time, nullable=False) 
     status = db.Column(db.String(50))
     notes = db.Column(db.Text)
     treatments = db.relationship('Treatment', backref='appointment', lazy=True)

@@ -1,0 +1,70 @@
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+}
+
+/* Top section */
+h2 {
+    margin: 0;
+}
+
+button {
+    padding: 6px 12px;
+    background: #4f46e5;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background: #4338ca;
+}
+
+/* Counts section */
+p {
+    margin: 5px 0;
+}
+
+/* Search bars */
+input[type="text"] {
+    padding: 8px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button {
+    padding: 7px 14px;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 14px;
+}
+
+th {
+    background: #e9e9e9;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+h3 {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}

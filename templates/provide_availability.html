@@ -4,28 +4,55 @@
     <meta charset="UTF-8">
     <title>Provide Availability</title>
 </head>
-<body style="font-family: Arial, sans-serif;">
-  <h2>Provide Your Availability for the Next 7 Days</h2>
-  <form method="post">
-    {% for d in dates %}
-      <div style="margin-bottom:12px;">
-        <b>{{ d.strftime("%A, %d %b %Y") }}</b> <br>
-        Morning:
-        <input type="time" name="morning_start_{{ d }}" value="{{ form_data[d][0].start_time if form_data[d][0] else '' }}">
-        to
-        <input type="time" name="morning_end_{{ d }}" value="{{ form_data[d][0].end_time if form_data[d][0] else '' }}">
-        &nbsp;&nbsp;
-        Evening:
-        <input type="time" name="evening_start_{{ d }}" value="{{ form_data[d][1].start_time if form_data[d][1] else '' }}">
-        to
-        <input type="time" name="evening_end_{{ d }}" value="{{ form_data[d][1].end_time if form_data[d][1] else '' }}">
-        {% if form_data[d][0] or form_data[d][1] %}
-          <span style="color: green; font-size: 13px;">Prefilled slot</span>
-        {% endif %}
-      </div>
-    {% endfor %}
-    <button type="submit">Save</button>
-  </form>
+<body>
+    <h2>Provide Availability (Next 7 Days)</h2>
+
+    <form method="post" action="/provide_availability">
+        <table border="1" style="width: 100%; margin-top: 10px;">
+            <tr>
+                <th>Date</th>
+                <!-- Morning slots -->
+                <th>08:00 - 09:00<br>Morning</th>
+                <th>09:00 - 10:00<br>Morning</th>
+                <th>10:00 - 11:00<br>Morning</th>
+                <th>11:00 - 12:00<br>Morning</th>
+                <!-- Evening slots -->
+                <th>16:00 - 17:00<br>Evening</th>
+                <th>17:00 - 18:00<br>Evening</th>
+                <th>18:00 - 19:00<br>Evening</th>
+                <th>19:00 - 20:00<br>Evening</th>
+            </tr>
+
+            {% for day in week_view %}
+            <tr>
+                <td>{{ day.date }}</td>
+
+                {% for slot in day.slots %}
+                <td>
+                    {% if slot.is_booked %}
+                        <!-- Slot already booked: show as booked, no checkbox -->
+                        <div>Booked</div>
+                    {% else %}
+                        <label>
+                            <input type="checkbox"
+                                   name="{{ slot.field_name }}"
+                                   {% if slot.is_available %}checked{% endif %}>
+                            Available
+                        </label>
+                    {% endif %}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+
+        <br>
+        <button type="submit">Save Availability</button>
+    </form>
+
+    <br>
+    <a href="/doctor_dashboard">
+        <button type="button">Back to Dashboard</button>
+    </a>
 </body>
 </html>
-

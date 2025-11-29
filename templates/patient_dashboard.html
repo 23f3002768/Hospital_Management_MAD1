@@ -3,15 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Patient Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='patient_dashboard.css') }}">
+
 </head>
 <body>
-    <div>
-        <h3>WELCOMEEE</h3>
-        <a href="/edit_proile_patientdashboard"><button type="button"></button>Edit profile</a>
-        <a href="/history"><button type="button"></button>History</a>
-        <a href="/logout_patientdashboard"><button type="button"></button>Logout</a>
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+        <h3>WELCOME</h3>
+        <div>
+        <h3>Search Doctors</h3>
+        <form method="post" action="/search_doctors_patient">
+            <label>Department:</label>
+            <select name="department_id">
+                <option value="all">All</option>
+                {% for dept in departments %}
+                <option value="{{ dept.id }}">{{ dept.name }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Doctor name:</label>
+            <input type="text" name="name" placeholder="Optional">
+
+            <button type="submit">Search</button>
+        </form>
+
+        {% if search_doctors is defined %}
+        <h4>Search Results</h4>
+        <table border="1" style="width: 100%; margin-top: 10px;">
+            <tr>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Profile & Availability</th>
+            </tr>
+            {% for doc in search_doctors %}
+            <tr>
+                <td>Dr. {{ doc.name }}</td>
+                <td>{{ doc.department.name if doc.department else '' }}</td>
+                <td>
+                    <a href="/doctor_profile/{{ doc.id }}">
+                        <button type="button">View Profile</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
     </div>
+
+    <br><br>
+
+        <div>
+            <a href="/edit_profile">
+                <button type="button">Edit profile</button>
+            </a>
+            <a href="/my_history">
+                <button type="button">History</button>
+            </a>
+            <a href="/logout">
+                <button type="button">Logout</button>
+            </a>
+        </div>
+    </div>
+
 
     <br><br>
 
@@ -35,20 +88,60 @@
                 <th>Department</th>
                 <th>Date</th>
                 <th>Time</th>
-                <th>more</th>
+                <th>Status</th>
+                <th>Actions</th>
             </tr>
-            {% for appt in appointments %}
+            {% for appt in upcoming_appointments %}
             <tr>
                 <td>{{ loop.index }}</td>
                 <td>Dr. {{ appt.doctor.name }}</td>
                 <td>{{ appt.doctor.department.name }}</td>
                 <td>{{ appt.date }}</td>
                 <td>{{ appt.time }}</td>
-                <td><a href="/cancel_appointment/{{ appt.id }}"><button type="button">Cancel</button></a></td>
+                <td>{{ appt.status }}</td>
+                <td>
+                    <a href="/reschedule_appointment/{{ appt.id }}">
+                        <button type="button">Reschedule</button>
+                    </a>
+                    <a href="/cancel_appointment/{{ appt.id }}">
+                        <button type="button">Cancel</button>
+                    </a>
+                </td>
             </tr>
             {% endfor %}
         </table>
     </div>
+
+
+    <br><br>
+    <div>
+        <h3>Past Appointments & Treatment History</h3>
+        <table border="1">
+            <tr>
+                <th>Sr. no</th>
+                <th>Doctor</th>
+                <th>Department</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Diagnosis</th>
+                <th>Prescription</th>
+            </tr>
+            {% for appt in past_appointments %}
+            {% set treatment = appt.treatments[0] if appt.treatments else None %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>Dr. {{ appt.doctor.name }}</td>
+                <td>{{ appt.doctor.department.name }}</td>
+                <td>{{ appt.date }}</td>
+                <td>{{ appt.status }}</td>
+                <td>{{ treatment.diagnosis if treatment else '' }}</td>
+                <td>{{ treatment.prescription if treatment else '' }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+
 
 
 </body>

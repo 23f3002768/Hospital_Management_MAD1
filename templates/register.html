@@ -3,30 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>{% if patient %}Edit Patient{% else %}Register{% endif %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
 </head>
 <body>
     <div class="centre-box">
-    <h2>Register</h2>
-    <form action="/register" method="POST">
-        
-            <label for="name">Name</label>
-            <input type="text" name="name" required><br>
+        <h2>{% if patient %}Edit Patient{% else %}Register{% endif %}</h2>
 
-            <label for="email">Email</label>
-            <input type="email" name="email" required><br>
+        <form method="post"
+              action="{% if patient and request.path.startswith('/edit-patient') %}
+                          /edit-patient/{{ patient.id }}
+                      {% elif patient and request.path.startswith('/edit_profile') %}
+                          /edit_profile
+                      {% else %}
+                          /register
+                      {% endif %}">
+            Name:
+            <input type="text" name="name" value="{{ patient.name if patient else '' }}" required><br>
 
-            <label for="password">Password</label>
-            <input type="password" name="password" required><br>
+            Email:
+            <input type="email" name="email" value="{{ patient.email if patient else '' }}" required><br>
 
-            <label for="contact">Contact</label>
-            <input type="text" name="contact" required><br>
+            Contact:
+            <input type="text" name="contact" value="{{ patient.contact if patient else '' }}"><br>
 
-            <button type="submit" class="btn">Register</button>
-            <p>Already have an account? <a href="/login">Login</a></p>
+            <!-- Optional extra fields -->
+            <!-- Gender, etc., if you use them in your model -->
+            <!--
+            Gender:
+            <input type="text" name="gender" value="{{ patient.gender if patient else '' }}"><br>
+            -->
 
+            {% if not patient %}
+                Password:
+                <input type="password" name="password" required><br>
+            {% endif %}
 
-    </form>
+            <button type="submit">
+                {% if patient %}Update{% else %}Register{% endif %}
+            </button>
+        </form>
     </div>
 </body>
 </html>

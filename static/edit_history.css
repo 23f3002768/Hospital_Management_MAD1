@@ -1,0 +1,55 @@
+body {
+    margin: 0;
+    padding: 25px;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+p {
+    margin: 6px 0;
+    font-size: 15px;
+}
+
+/* Form */
+label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 5px;
+    font-size: 14px;
+    resize: vertical;
+}
+
+/* Buttons */
+button {
+    padding: 7px 16px;
+    background: #4f46e5;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #4338ca;
+}
+
+a {
+    text-decoration: none;
+}
+
+a button {
+    margin-top: 12px;
+}

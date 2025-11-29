@@ -3,13 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Admin Dasdboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_dashboard.css') }}">
+
 </head>
 <body>
 
-<div>
+
+<div style="display: flex; justify-content: space-between; align-items: center;">
     <h2>WELCOME ADMIN</h2>
+    <a href="/logout"><button type="button">Logout</button></a>
 </div>
+<br>
+
+
+<div>
+    <p>Total doctors: {{ doctors|length }}</p>
+    <p>Total patients: {{ patients|length }}</p>
+    <p>Total appointments: {{ appointments|length }}</p>
+</div>
+<br>
+
+
+
+<form method="post" action="/search_doctors" style="margin-top: 10px; margin-bottom: 5px;">
+    <input type="text" name="q" placeholder="Search doctors by name or specialization">
+    <button type="submit">Search Doctors</button>
+</form>
 
 
 <div style="display: flex; align-items: center; justify-content: space-between;">
@@ -28,17 +48,24 @@
 
     <tr>
         <td>{{doctor.name}}</td>
-        <td>{{doctor.department}}</td>
+        <td>{{doctor.department.name if doctor.department else ''}}</td>
         <td>
-             <a href="/edit-doctor/{{ doctor.id }}"><button type="button">Edit</button></a>
-             <a href="/edit-doctor/{{ doctor.id }}"><button type="button">delete</button></a>
-             <a href="/edit-doctor/{{ doctor.id }}"><button type="button">blacklist</button></a>
+            <a href="/edit-doctor/{{ doctor.id }}"><button type="button">Edit</button></a>
+            <a href="/delete_doctor/{{ doctor.id }}"><button type="button">delete</button></a>
+            <a href="/blacklist_doctor/{{ doctor.id }}"><button type="button">blacklist</button></a>
         </td>
+
     </tr>
     {%endfor%}
 </table>
 </div>
 
+
+
+<form method="post" action="/search_patients" style="margin-top: 20px; margin-bottom: 5px;">
+    <input type="text" name="q" placeholder="Search patients by name, contact or ID">
+    <button type="submit">Search Patients</button>
+</form>
 
 
 <div style="display: flex; align-items: center; justify-content: space-between;">
@@ -55,10 +82,11 @@
         <tr>
             <td>{{patient.name}}</td>
             <td>
-                <a href="/edit-patient/{{patient.id}}"><button type = "button">Edit</button></a>
-                <a href="/edit-patient/{{patient.id}}"><button type = "button">delete</button></a>
-                <a href="/edit-patient/{{patient.id}}"><button type = "button">blacklist</button></a>
+                <a href="/edit-patient/{{patient.id}}"><button type="button">Edit</button></a>
+                <a href="/delete_patient/{{patient.id}}"><button type="button">delete</button></a>
+                <a href="/blacklist_patient/{{patient.id}}"><button type="button">blacklist</button></a>
             </td>
+
         </tr>
         {%endfor%}
     </table>
@@ -71,28 +99,71 @@
 
 <div>
     <table border="1" style="width: 100%; margin-top: 10px">
-    <tr>
-        <th>Sr No</th>
-        <th>Patient name</th>
-        <th>Doctor name</th>
-        <th>Department</th>
-        <th>Patient history</th>
-    </tr>
-    {%for appointments in Appointment %}
-
-    <tr>
-        <td>{{ loop.index }}</td>
-        <td>{{appointments.patients.name}}</td>
-        <td>{{appointments.doctors.name}}</td>
-        <td>{{appointments.doctors.department}}</td>
-        <td><a href="/view-history/{{ appointment.id }}"><button type="button">View</button></a>
+        <tr>
+            <th>Sr No</th>
+            <th>Patient name</th>
+            <th>Doctor name</th>
+            <th>Department</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Patient history</th>
+        </tr>
+        {% for appt in upcoming_appointments %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ appt.patient.name }}</td>
+            <td>{{ appt.doctor.name }}</td>
+            <td>{{ appt.doctor.department.name if appt.doctor.department else '' }}</td>
+            <td>{{ appt.date }}</td>
+            <td>{{ appt.status }}</td>
+            <td>
+                <a href="/patient_history/{{ appt.patient_id }}">
+                    <button type="button">View</button>
+                </a>
             </td>
-    </tr>
-    {% endfor %}
+        </tr>
+        {% endfor %}
     </table>
 </div>
 
-       
+
+
+
+<div style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px;">
+    <h3>Past Appointments</h3>
+</div>
+
+<div>
+    <table border="1" style="width: 100%; margin-top: 10px">
+        <tr>
+            <th>Sr No</th>
+            <th>Patient name</th>
+            <th>Doctor name</th>
+            <th>Department</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Patient history</th>
+        </tr>
+        {% for appt in past_appointments %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ appt.patient.name }}</td>
+            <td>{{ appt.doctor.name }}</td>
+            <td>{{ appt.doctor.department.name if appt.doctor.department else '' }}</td>
+            <td>{{ appt.date }}</td>
+            <td>{{ appt.status }}</td>
+            <td>
+                <a href="/admin_patient_history/{{ appt.patient_id }}">
+                    <button type="button">View</button>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+    
+
 
     
 </body>

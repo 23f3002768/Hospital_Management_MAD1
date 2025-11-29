@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Patient History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='patient_history.css') }}">
+</head>
+<body>
+    <h2>Patient History</h2>
+    <p>Patient Name: {{ patient.name }}</p>
+
+    <h4>Visit History</h4>
+    <table border="1" style="width: 100%;">
+        <tr>
+            <th>Visit Date</th>
+            {% if from_patient or from_admin %}
+                <th>Doctor</th>
+                <th>Department</th>
+            {% endif %}
+            <th>Diagnosis</th>
+            <th>Prescription</th>
+            <th>Medicines</th>
+        </tr>
+        {% for record in history %}
+        <tr>
+            <td>{{ record.visit_date }}</td>
+            {% if from_patient or from_admin %}
+                <td>{{ record.doctor_name }}</td>
+                <td>{{ record.department_name }}</td>
+            {% endif %}
+            <td>{{ record.diagnosis }}</td>
+            <td>{{ record.prescription }}</td>
+            <td>{{ record.medicines }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    {% if from_patient %}
+        <a href="/patient_dashboard"><button type="button">Back</button></a>
+    {% elif from_admin %}
+        <a href="/admin_dashboard"><button type="button">Back</button></a>
+    {% else %}
+        <a href="/doctor_dashboard"><button type="button">Back</button></a>
+    {% endif %}
+</body>
+</html>

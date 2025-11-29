@@ -1,0 +1,52 @@
+body {
+    margin: 0;
+    padding: 25px;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+}
+
+/* Heading spacing */
+h2 {
+    margin-bottom: 12px;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+}
+
+th {
+    background: #f1f1f1;
+}
+
+tr:nth-child(even) {
+    background: #fafafa;
+}
+
+/* Checkbox spacing */
+label {
+    font-size: 13px;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.1);
+    margin-right: 5px;
+}
+
+/* Buttons */
+button {
+    padding: 7px 14px;
+    background: #4f46e5;
+    border: none;
+    color: white;
+    border-radius:

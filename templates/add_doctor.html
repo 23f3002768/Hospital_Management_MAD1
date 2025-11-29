@@ -3,41 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Add Doctor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='add_doctor.css') }}">
+
 </head>
 <body>
-    <h3>Add a New Doctor</h3>
-    <form action="/add_doctor" method="POST">
-        <label for="fullname">Fullname</label>
-        <input type="text" name="name" required><br><br>
+      <h3>Add a New Doctor</h3>
+      <form method="post"
+        action="{% if doctor %}/edit-doctor/{{ doctor.id }}{% else %}/add_doctor{% endif %}">
+        Name:
+        <input type="text" name="name" value="{{ doctor.name if doctor else '' }}"><br>
 
-        <label for="specialization">specialization</label>
-        <input type="text" name="specialization" required><br><br>
+        Email:
+        <input type="email" name="email" value="{{ doctor.email if doctor else '' }}"><br>
 
-        <label for="experience">Experience(years):</label>
-        <input type="number" name="experience" required><br><br>
+        Contact:
+        <input type="text" name="contact" value="{{ doctor.contact if doctor else '' }}"><br>
 
-        <label for="email">Email:</label>
-        <input type="email" name="email" required><br><br>
+        Specialization:
+        <input type="text" name="specialization" value="{{ doctor.specialization if doctor else '' }}"><br>
 
-        <label for="password">Password</label>
-        <input type="passowrd" name="password" required><br><br>
+        Experience:
+        <input type="number" name="experience" value="{{ doctor.experience if doctor else '' }}"><br>
 
-        <label for="contact">Contact</label>
-        <input type="text" name="contact" required><br><br>
+        Department:
+        <select name="department_id">
+            {% for dept in departments %}
+            <option value="{{ dept.id }}"
+                {% if doctor and doctor.department_id == dept.id %}selected{% endif %}>
+                {{ dept.name }}
+            </option>
+            {% endfor %}
+        </select><br>
 
-        <label for="department">Department:</label>
-        <select name="department_id" required>
-          {% for dept in departments %}
-            <option value="{{ dept.id }}">{{ dept.name }}</option>
-          {% endfor %}
-        </select><br><br>
+        Password (for new doctor only):
+        {% if not doctor %}
+            <input type="password" name="password"><br>
+        {% endif %}
 
-
-        <button type="submit">Create</button>
-
-        <label for=""></label>
+        <button type="submit">
+            {% if doctor %}Update{% else %}Create{% endif %}
+        </button>
     </form>
+
 
 </body>
 </html>

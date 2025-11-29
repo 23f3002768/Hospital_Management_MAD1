@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+    padding: 25px;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+}
+
+h2 {
+    margin-bottom: 5px;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 14.5px;
+}
+
+h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* Doctor list styling */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    background: white;
+    margin-bottom: 10px;
+    padding: 12px 15px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Buttons */
+button {
+    padding: 6px 12px;
+    background: #4f46e5;
+    border: none;
+    color: white;
+    border-radiu
